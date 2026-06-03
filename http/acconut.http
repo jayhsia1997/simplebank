@@ -1,0 +1,31 @@
+### Simple Bank API
+### Requires server running: go run .
+### Default from .env: HOST=0.0.0.0, PORT=8080
+
+@baseUrl = http://localhost:8080
+
+### ----------------------------------------
+### Accounts
+### ----------------------------------------
+
+### Create account
+# @name createAccount
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "owner": "alice",
+  "currency": "USD"
+}
+
+###
+
+### Get account by ID
+# Replace 1 with an ID returned from create account
+@id = 1
+GET {{baseUrl}}/accounts/{{id}}
+
+###
+
+### List accounts
+GET {{baseUrl}}/accounts?page_id=1&page_size=5
