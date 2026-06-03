@@ -17,7 +17,7 @@ func createRandomEntry(t *testing.T) Entry {
 		Amount:    utils.RandomMoney(),
 	}
 
-	entry, err := testQueries.CreateEntry(context.Background(), arg)
+	entry, err := testStore.CreateEntry(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, entry)
 
@@ -36,7 +36,7 @@ func TestCreateEntry(t *testing.T) {
 
 func TestGetEntry(t *testing.T) {
 	entry1 := createRandomEntry(t)
-	entry2, err := testQueries.GetEntry(context.Background(), entry1.ID)
+	entry2, err := testStore.GetEntry(context.Background(), entry1.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, entry2)
 
@@ -53,7 +53,7 @@ func TestListEntries(t *testing.T) {
 			AccountID: pgtype.Int8{Int64: account.ID, Valid: true},
 			Amount:    utils.RandomMoney(),
 		}
-		_, err := testQueries.CreateEntry(context.Background(), arg)
+		_, err := testStore.CreateEntry(context.Background(), arg)
 		require.NoError(t, err)
 	}
 
@@ -63,7 +63,7 @@ func TestListEntries(t *testing.T) {
 		Offset:    5,
 	}
 
-	entries, err := testQueries.ListEntries(context.Background(), arg)
+	entries, err := testStore.ListEntries(context.Background(), arg)
 	require.NoError(t, err)
 	require.Len(t, entries, 5)
 
